@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.dtos.ActorDto;
+import com.example.domains.entities.dtos.ActorName;
 
 import lombok.Data;
 
@@ -25,11 +27,11 @@ public class DemoApplication implements CommandLineRunner {
 	ActorRepository dao;
 	
 	@Override
-	@Transactional
+//	@Transactional
 	public void run(String... args) throws Exception {
 //		System.out.println("Hola mundo");
 //		dao.save(new Actor(0, "Pepito", "Grillo"));
-//		var item = dao.findById(205);
+//		var item = dao.findById(202);
 //		if(item.isPresent()) {
 //			var actor = item.get();
 //			actor.setLastName(actor.getLastName().toUpperCase());
@@ -50,6 +52,21 @@ public class DemoApplication implements CommandLineRunner {
 ////			System.out.println(actor.getClass().getName());
 //			actor.getFilmActors().forEach(fa -> System.out.println(fa.getFilm().getTitle()));
 //		}
+		
+//		var actor = new Actor(0, "algo", "12345678z");
+//		if(actor.isInvalid()) {
+//			System.out.println(actor.getErrorsMessage());
+//		} else {
+//			System.out.println("Es valido");
+//		}
+//		dao.save(actor);
+//		dao.findAll().forEach(item -> System.out.println(ActorDto.from(item)));
+//		System.out.println(ActorDto.from(new ActorDto(1, "kk", "AA")));
+//		dao.nuevos(200).forEach(item -> System.out.println(item.getNombre()));
+//		dao.nuevos(200).forEach(System.out::println);
+		
+//		dao.findByActorIdNotNull(ActorDto.class).forEach(System.out::println);
+//		dao.findByActorIdNotNull(ActorName.class).forEach(item -> System.out.println(item.getNombre()));
 	}
 
 }
