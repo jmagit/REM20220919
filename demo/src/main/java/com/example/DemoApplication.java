@@ -65,8 +65,8 @@ public class DemoApplication implements CommandLineRunner {
 //		dao.nuevos(200).forEach(item -> System.out.println(item.getNombre()));
 //		dao.nuevos(200).forEach(System.out::println);
 		
-//		dao.findByActorIdNotNull(ActorDto.class).forEach(System.out::println);
-//		dao.findByActorIdNotNull(ActorName.class).forEach(item -> System.out.println(item.getNombre()));
+//		dao.findByActorIdIsNotNull(ActorDto.class).forEach(System.out::println);
+		dao.findByActorIdIsNotNull(ActorName.class).forEach(item -> System.out.println(item.getNombre()));
 	}
 
 }
