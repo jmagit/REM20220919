@@ -3,6 +3,7 @@ package com.example.application.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validator;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.domains.contracts.services.ActorService;
 import com.example.domains.entities.dtos.ActorDto;
+import com.example.domains.entities.dtos.KeyValueDto;
 import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
@@ -50,14 +52,15 @@ public class ActorResource {
 		return ActorDto.from(item.get());
 	}
 
-//	@GetMapping(path = "/{id}/peliculas")
-//	public ActorDto getPelis(@PathVariable int id) throws NotFoundException {
-//		var item = srv.getOne(id);
-//		if(item.isEmpty())
-//			throw new NotFoundException();
-//		return ActorDto.from(item.get());
-//	}
-//
+	@GetMapping(path = "/{id}/peliculas")
+	@Transactional
+	public List<KeyValueDto<Integer, String>> getPelis(@PathVariable int id) throws NotFoundException {
+		var item = srv.getOne(id);
+		if(item.isEmpty())
+			throw new NotFoundException();
+		return item.get().getFilmActors().stream().map(p -> new KeyValueDto<>(p.getFilm().getFilmId(), p.getFilm().getTitle())).toList();
+	}
+
 	@PostMapping
 	public ResponseEntity<Object> create(@Valid @RequestBody ActorDto item) throws BadRequestException, DuplicateKeyException, InvalidDataException {
 		var actor = ActorDto.from(item);
