@@ -64,7 +64,7 @@ public class ContactoResource {
 		return rslt.get();
 	}
 
-	@PreAuthorize("isAuthenticated()")
+//	@PreAuthorize("isAuthenticated()")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@Operation(summary = "Creación de un contacto")
@@ -77,7 +77,7 @@ public class ContactoResource {
 		return ResponseEntity.created(location).build();
 	}
 
-	@Secured({ "ROLE_USER" })
+//	@Secured({ "ROLE_USER" })
 	@PutMapping(path = "/{id}")
 	@Operation(summary = "Modificación de un contacto")
 	public Contacto modify(@PathVariable String id, @Valid @RequestBody Contacto item) throws Exception {
