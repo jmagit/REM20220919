@@ -3,6 +3,7 @@ package com.example.application.resources;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -61,4 +62,17 @@ public class CotillaResource {
 	public PeliculaCortoDto peliculaProxy(@PathVariable int id) {
 		return proxy.getPelicula(id);
 	}
+	
+	@Value("${particular.para.demos}")
+	String configString;
+	
+	@Value("${comun.para.todos}")
+	String configComun;
+
+	@GetMapping("/config")
+	public String getConfig() {
+		return configString + "<--->" + configComun;
+	}
+
+	
 }
