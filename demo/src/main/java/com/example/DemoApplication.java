@@ -9,9 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.domains.contracts.repositories.ActorRepository;
 import com.example.domains.contracts.services.ActorService;
@@ -35,6 +40,8 @@ import lombok.Data;
         ),
         externalDocs = @ExternalDocumentation(description = "Documentación del proyecto", url = "https://github.com/jmagit/REM20220919")
 )
+@EnableEurekaClient
+@EnableFeignClients(basePackages = "com.example.application.proxies")
 public class DemoApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
@@ -96,6 +103,12 @@ public class DemoApplication implements CommandLineRunner {
 	        var schemas = openApi.getComponents().getSchemas();
 	        openApi.getComponents().setSchemas(new TreeMap<>(schemas));
 	    };
+	}
+
+	@Bean 
+	@LoadBalanced
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
 	}
 
 }
